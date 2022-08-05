@@ -7,11 +7,11 @@ IN_EXT = ".in"
 OUT_EXT = ".out"
 
 def pytest_addoption(parser):
-    parser.addoption("--folder", action="store", help="Path to OTUS test files")
+    parser.addoption("--folder", action="store", default="data", help="Path to OTUS test files")
 
 def pytest_generate_tests(metafunc):
     if all(x in metafunc.fixturenames for x in ARGS):
-        path = join(getcwd(), metafunc.config.getoption("folder") or "fixtures") 
+        path = join(getcwd(), metafunc.config.getoption("folder")) 
         inputs = [file for file in listdir(path) if file.endswith(IN_EXT)]
         inputs.sort()
         cases = []
